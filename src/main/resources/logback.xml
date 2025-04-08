@@ -1,0 +1,59 @@
+<configuration>
+    <contextName>ePTaf </contextName>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%-5level: %logger{35} [%thread] %date{dd MMM yyyy - HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DebugRollingfileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <File>logs/eptaf_debug.log</File>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/eptaf_debug_.%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <!-- TTCCLayout -->
+            <pattern>%-5level: %date{dd MMM yyyy HH:mm:ss} %logger{35} [%thread] - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <appender name="FappenderError" class="ch.qos.logback.core.FileAppender">
+        <file>logs/eptaf_error-${user.name}.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern>%-5level: %date{dd MMM yyyy HH:mm:ss} %logger{35} [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="TransfertApp" level="info">
+    </logger>
+
+    <logger name="cea.edyp.eptaf" level="info"/>
+
+    <logger name="org.springframework" level="warn" />
+
+    <appender name="FORM" class="cea.edyp.eptaf.LogAppender" />
+
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="DebugRollingfileAppender" />
+        <appender-ref ref="FappenderError" />
+        <appender-ref ref="FORM" />
+    </root>
+
+</configuration>

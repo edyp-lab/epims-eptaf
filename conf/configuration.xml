@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="defaultDestination" class="cea.edyp.eptaf.Destination">
+		<property name="path"><value>C:/PATH_TO/ePTAF_Dest</value></property>
+	</bean>
+
+	<bean id="messageFilter" class="cea.edyp.eptaf.MessageFilter">
+		<property name="properties">
+			<map>
+				<entry>
+					<key><value>acquisitionFileDescriptor.acquisition.acquisitionJson.instrumentName</value></key>
+					<value>(^Xpl1)</value>
+				</entry>
+				<entry>
+					<key><value>acquisitionFileDescriptor.acquisition.acquisitionJson.nature</value></key>
+					<value>(^Recherche)</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="DH5PRM_Xpl1" class="cea.edyp.eptaf.FilterDispatcher">
+		<property name="properties">
+			<map>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.nomenclatureTitle</value></key>
+					<value>(^2021PRM|^2022PRM)</value>
+				</entry>
+				<entry>
+					<key><value>acquisitionFileDescriptor.acquisition.acquisitionJson.instrumentName</value></key>
+					<value>^Xpl1</value>
+				</entry>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.closingDate</value></key>
+					<value></value>
+				</entry>
+			</map>
+		</property>
+		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/Xpl_PRM</value></property>
+	</bean>
+
+	<bean id="DH5_Xpl1" class="cea.edyp.eptaf.FilterDispatcher">
+		<property name="properties">
+			<map>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.nomenclatureTitle</value></key>
+					<value>(^2022DH5|^2021DH5)</value>
+				</entry>
+				<entry>
+					<key><value>acquisitionFileDescriptor.acquisition.acquisitionJson.instrumentName</value></key>
+					<value>^Xpl1</value>
+				</entry>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.closingDate</value></key>
+					<value></value>
+				</entry>
+			</map>
+		</property>
+		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/DH5_Xpl1_new</value></property>
+	</bean>
+	<bean id="DH5_QHF1" class="cea.edyp.eptaf.FilterDispatcher">
+		<property name="properties">
+			<map>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.nomenclatureTitle</value></key>
+					<value>2019DH5</value>
+				</entry>
+				<entry>
+					<key><value>acquisitionFileDescriptor.acquisition.acquisitionJson.instrumentName</value></key>
+					<value>^QHF1</value>
+				</entry>
+				<entry>
+					<key><value>sampleDescriptor.studyPath.closingDate</value></key>
+					<value></value>
+				</entry>
+			</map>
+		</property>
+		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/DH5_HF1</value></property>
+	</bean>
+
+	<bean id="messageHandler" class="cea.edyp.eptaf.MessageHandler" factory-method="getInstance">
+		<property name="defaultDestination"><ref bean="defaultDestination" /></property>
+		<property name="ftpConfig"><ref bean="ftpConfiguration" /></property>
+		<property name="messageFilter"><ref bean="messageFilter" /></property>
+		<property name="dispatchers">
+			<list>			
+				<ref bean="DH5PRM_Xpl1"/>				
+				<ref bean="DH5_QHF1"/>
+				<ref bean="DH5_Xpl1"/>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
