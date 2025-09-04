@@ -8,19 +8,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 import cea.edyp.eptaf.FTPConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileFTPTransfert implements IFileTransferer {
 	
-	private FTPConfiguration config;
-	private static Log logger = LogFactory.getLog(FileFTPTransfert.class);
+	private final FTPConfiguration config;
+	private static final Logger logger = LoggerFactory.getLogger(FileFTPTransfert.class);
 	
 	
 	public FileFTPTransfert(FTPConfiguration cfg) {
@@ -81,13 +81,13 @@ public class FileFTPTransfert implements IFileTransferer {
 	      }
 	      ftp.logout();
 	    } catch(IOException e) {
-	      logger.error(e);
+	      logger.error(" IO exception : "+e.getMessage(), e);
 	    } finally {
 	      if(ftp.isConnected()) {
 	        try {
 	          ftp.disconnect();
 	        } catch(IOException ioe) {
-	          logger.error(ioe);
+	          logger.error(" Disconnection error : "+ioe.getMessage(), ioe);
 	        }
 	      }
 	    }
@@ -133,12 +133,12 @@ public class FileFTPTransfert implements IFileTransferer {
     		try {
         	zis.closeEntry();
     		} catch(IOException ex){
-    			logger.error(ex);
+    			logger.error("unzip error ("+ex.getMessage()+")", ex);
     		}
     		try {
     			zis.close();
     		} catch(IOException ex){
-    			logger.error(ex);
+    			logger.error("unzip creation error ("+ex.getMessage()+")", ex);
     		}
     	}
     	throw ze;
@@ -147,12 +147,12 @@ public class FileFTPTransfert implements IFileTransferer {
     		try {
         	zis.closeEntry();
     		} catch(IOException ex1){
-    			logger.error(ex);
+    			logger.error("unzip creation error ("+ex.getMessage()+")",ex);
     		}
     		try {
     			zis.close();
     		} catch(IOException ex1){
-    			logger.error(ex);
+    			logger.error("unzip creation error ("+ex.getMessage()+")",ex);
     		}
     	}
     	throw ex;

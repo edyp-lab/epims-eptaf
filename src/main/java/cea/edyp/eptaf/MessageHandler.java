@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.edyp.epims.json.AcquisitionFileMessageJson;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -15,7 +15,7 @@ import cea.edyp.eptaf.transfert.FileTransfert;
 public class MessageHandler {
 
 	private static MessageHandler instance;
-	private static Log logger = LogFactory.getLog(MessageHandler.class);
+	private static Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
 	private FTPConfiguration ftpConfig;
 	private FileTransfert transfert;

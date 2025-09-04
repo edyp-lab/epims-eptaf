@@ -1,13 +1,14 @@
 package cea.edyp.eptaf;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class Destination {
 
-	private static Log logger = LogFactory.getLog(Destination.class);
+	private static Logger logger = LoggerFactory.getLogger(Destination.class);
 	
 	private String path;
 	private File file;

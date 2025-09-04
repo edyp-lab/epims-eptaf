@@ -4,19 +4,19 @@ import java.io.File;
 import java.io.IOException;
 
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import cea.edyp.eptaf.FTPConfiguration;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.xfer.FileSystemFile;
 import net.schmizz.sshj.xfer.LocalDestFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileSFTPTransfert implements IFileTransferer {
 
 	private FTPConfiguration config;
-	private static Log logger = LogFactory.getLog(FileSFTPTransfert.class);
+	private static Logger logger = LoggerFactory.getLogger(FileSFTPTransfert.class);
 		
 	public FileSFTPTransfert(FTPConfiguration cfg) {
 		config =  cfg;

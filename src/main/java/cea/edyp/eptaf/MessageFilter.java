@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fr.edyp.epims.json.AcquisitionFileMessageJson;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -16,7 +16,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 public class MessageFilter {
 
-	private static Log logger = LogFactory.getLog(MessageFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(MessageFilter.class);
 	
 	private Map<String, String> properties;
 	
