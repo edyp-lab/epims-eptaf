@@ -12,6 +12,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
    		<maven.compiler.source>17</maven.compiler.source>
    		<maven.compiler.target>17</maven.compiler.target>
+		<os.classifier>windows-x64</os.classifier> <!-- only window for now... could allow unix -->
 	</properties>
 
 	<dependencies>
@@ -21,6 +22,15 @@
 			<artifactId>eP-Json</artifactId>
 			<version>3.7.0-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>jdk</artifactId>
+			<version>17.0.3.1</version>
+			<type>zip</type>
+			<classifier>${os.classifier}</classifier>
+		</dependency>
+
 
 		<dependency>
 			<groupId>commons-net</groupId>
@@ -55,31 +65,41 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activeio-core</artifactId>
 			<version>3.1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
-			<version>6.2.7</version>
+			<version>6.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>6.2.7</version>
+			<version>6.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>6.2.7</version>
+			<version>6.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>
-			<version>3.5.0</version>
+			<version>3.5.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<version>3.5.0</version>
+			<version>3.5.5</version>
 		</dependency>
 		<!-- <dependency>
 			<groupId>cea.edyp.epims</groupId>
@@ -125,31 +145,35 @@
 
 	<build>
 
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.directory}</targetPath>
+				<excludes>
+					<exclude>**/*.ico</exclude>
+					<exclude>**/*.svg</exclude>
+					<exclude>**/*.xml</exclude>
+					<exclude>Version</exclude>
+				</excludes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+				<includes>
+					<include>Version</include>
+					<include>**/*.png</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.3.1</version>
 				<executions>
-					<!-- This copies the JRE used to do the build from java.home -->
-					<execution>
-						<id>copy-java</id>
-						<!-- here the phase you need -->
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/java/jre</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${java.home}</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-
-
-					<!-- This copies the conf files -->
+					<!-- copies the conf files -->
 					<execution>
 						<id>copy-conf</id>
 						<!-- here the phase you need -->
@@ -173,21 +197,79 @@
 			</plugin>
 
 
+			<!-- VDS: For dev to get deprecation info -->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<version>3.14.0</version>-->
+<!--				<configuration>-->
+<!--				<compilerArgs>-->
+<!--					<arg>-Xlint:deprecation</arg>-->
+<!--					<arg>-Xlint:unchecked</arg>-->
+<!--				</compilerArgs>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution> <!-- Get all dependencies -->
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<includeTypes>jar</includeTypes>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+
+					<execution> <!--zip-dependencies : Java  -->
+						<id>copy-zip-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeTypes>zip</includeTypes>
+							<outputDirectory>${project.build.directory}/unzip-dependencies</outputDirectory>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.4.2</version>
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>cea.edyp.eptaf.TransfertApp</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<useUniqueVersions>false</useUniqueVersions>
 						</manifest>
 					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/zip.xml</descriptor>
+					</descriptors>
 				</configuration>
 				<executions>
 					<execution>
@@ -197,90 +279,6 @@
 							<goal>single</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Build exe file -->
-			<plugin>
-				<groupId>com.akathist.maven.plugins.launch4j</groupId>
-				<artifactId>launch4j-maven-plugin</artifactId>
-				<version>2.4.1</version>
-				<executions>
-					<execution>
-						<id>l4j-clui</id>
-						<phase>package</phase>
-						<goals>
-							<goal>launch4j</goal>
-						</goals>
-						<configuration>
-							<headerType>gui</headerType>
-							<outfile>${project.build.directory}/eptafJavaEmb.exe</outfile>
-							<jar>${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
-							<errTitle>${project.name}</errTitle>
-							<classPath>
-								<mainClass>cea.edyp.eptaf.TransfertApp</mainClass>
-								<addDependencies>false</addDependencies>
-								<preCp>anything</preCp>
-							</classPath>
-							<icon>src/main/resources/eptaf-64.ico</icon>
-							<jre>
-								<path>./java/jre</path>
-							</jre>
-							<versionInfo>
-								<fileVersion>2.0.0.0</fileVersion>
-								<txtFileVersion>2.0.0</txtFileVersion>
-								<fileDescription>ePTaf 2.0</fileDescription>
-								<copyright>EDyP</copyright>
-								<productVersion>2.0.0.0</productVersion>
-								<txtProductVersion>ePTaf 2.0.0</txtProductVersion>
-								<productName>${project.name}</productName>
-								<internalName>${project.artifactId}</internalName>
-								<originalFilename>${project.name}.exe</originalFilename>
-							</versionInfo>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>cea.edyp.eptaf.TransfertApp</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>assemble-all</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<appendAssemblyId>false</appendAssemblyId>
-							<descriptors>
-								<descriptor>src/main/assembly/zip.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-
-
 				</executions>
 			</plugin>
 

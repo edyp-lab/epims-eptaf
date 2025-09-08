@@ -1,0 +1,1 @@
+.\jdk\bin\java -Xms512m -Xmx1G -Dlogback.configurationFile=conf/logback.xml -jar eP-TAF-@version@.jar

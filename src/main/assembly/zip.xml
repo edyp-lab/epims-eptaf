@@ -9,22 +9,38 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/conf</directory>
+            <directory>${project.basedir}</directory>
+            <includes>
+                <include>README.md</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/conf</directory>
+            <outputDirectory>/conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/lib</directory>
+            <outputDirectory>/lib</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>
             <includes>
-                <include>java*/**</include>
+                <include>*.jar</include>
+                <include>*.bat</include>
+                <include>*.png</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/unzip-dependencies</directory>
+            <includes>
+                <include>jdk/**</include>
             </includes>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
-
-        <file>
-            <source>${project.build.directory}/eptafJavaEmb.exe</source>
-            <outputDirectory>/</outputDirectory>
-        </file>
 
     </files>
 

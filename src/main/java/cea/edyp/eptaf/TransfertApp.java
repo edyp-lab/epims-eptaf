@@ -2,7 +2,6 @@ package cea.edyp.eptaf;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.util.ContextInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -48,7 +47,7 @@ public class TransfertApp {
 	 */
 	public static void main(String[] args) {
 
-		System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, "logback.xml");
+//		System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, "logback.xml");
 		logger = LoggerFactory.getLogger("TransfertApp");
 
 

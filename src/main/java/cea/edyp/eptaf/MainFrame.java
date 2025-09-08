@@ -4,7 +4,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
@@ -18,7 +23,23 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("eP-TAF");
 
-        ArrayList<Image> icons = new ArrayList();
+        String release = "eP-TAF";
+
+        try {
+            InputStream is = TestRsce.class.getClassLoader().getResourceAsStream("Version");
+            System.out.println("is "+is);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line  = reader.readLine();
+            if(line != null) {
+                System.out.println("Set line "+line);
+                release = line; //read first line
+            } else
+                System.out.println("NO line ");
+          } catch (IOException ignore) {
+            ignore.printStackTrace();
+          }
+        setTitle(release);
+        ArrayList<Image> icons = new ArrayList<>();
         Image icon = loadImage("eptaf-64.png");
         icons.add(icon);
         setIconImages(icons);

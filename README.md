@@ -4,10 +4,16 @@ According to filter rules, it retrieves new acquisitions from the repository via
 
 Previously hosted on CEA Tuleap Projects.
 
-**TODO**
-* change build 
-  * to use .bat/.sh instead of exe file
-  * to use specific java and not "java.home"
+## Usage
+
+Before running `start-epTAF.bat` you should modify following files
+
+* eptaf.properties
+  * jms.url_provider : define host & port of ePims server to get message from. Port should be 61617
+  * ftp.xxx : information to connect to the FTP server  
+ 
+* configuration.xml : defines rules to apply to filter server messages and download only expected acquisitions. 
+  * Description of allowed properties that may be used will be provided. [Previous doc could be found here...](http://biodev.extra.cea.fr/docs/epims/doku.php?id=wiki:epims4_1:admin:configurationepims#fichier_eptafpropertiesconfigurer_de_l_environnement_pour_ep-taf)   
 
 ## Revisions
 
