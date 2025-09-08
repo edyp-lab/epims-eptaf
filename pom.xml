@@ -29,12 +29,6 @@
 		</dependency>
 
 
-		<!-- Logging-->
-		<!--		<dependency>-->
-		<!--			<groupId>org.apache.logging.log4j</groupId>-->
-		<!--			<artifactId>log4j-core</artifactId>-->
-		<!--			<version>2.17.2</version>-->
-		<!--		</dependency>-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -56,12 +50,6 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-broker</artifactId>
 			<version>6.1.7</version>
-<!--			<exclusions>-->
-<!--			<exclusion>-->
-<!--				<groupId>org.apache.activemq</groupId>-->
-<!--				<artifactId>activeio-core</artifactId>-->
-<!--			</exclusion>-->
-<!--			</exclusions>-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -82,6 +70,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>6.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<version>3.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
