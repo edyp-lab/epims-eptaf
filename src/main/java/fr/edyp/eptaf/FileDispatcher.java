@@ -1,6 +1,5 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
-//import cea.edyp.communication.model.AcquisitionFileMessage;
 import fr.edyp.epims.json.AcquisitionFileMessageJson;
 
 public interface FileDispatcher {

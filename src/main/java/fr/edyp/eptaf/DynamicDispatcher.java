@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import java.io.File;
 
@@ -6,7 +6,6 @@ import fr.edyp.epims.json.AcquisitionFileMessageJson;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-//import cea.edyp.communication.model.AcquisitionFileMessage;
 
 public class DynamicDispatcher extends FilterDispatcher {
 	

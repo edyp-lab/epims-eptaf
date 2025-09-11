@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-//import cea.edyp.communication.model.AcquisitionFileMessage;
-import cea.edyp.eptaf.transfert.FileTransfert;
+import fr.edyp.eptaf.transfert.FileTransfert;
 
 public class MessageHandler {
 

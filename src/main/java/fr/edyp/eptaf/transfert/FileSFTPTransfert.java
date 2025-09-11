@@ -1,11 +1,11 @@
-package cea.edyp.eptaf.transfert;
+package fr.edyp.eptaf.transfert;
 
 import java.io.File;
 import java.io.IOException;
 
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 
-import cea.edyp.eptaf.FTPConfiguration;
+import fr.edyp.eptaf.FTPConfiguration;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.sftp.SFTPClient;
 import net.schmizz.sshj.xfer.FileSystemFile;

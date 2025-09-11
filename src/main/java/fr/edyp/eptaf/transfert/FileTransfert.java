@@ -1,8 +1,8 @@
-package cea.edyp.eptaf.transfert;
+package fr.edyp.eptaf.transfert;
 
 import java.io.File;
 
-import cea.edyp.eptaf.FTPConfiguration;
+import fr.edyp.eptaf.FTPConfiguration;
 
 public class FileTransfert {
 

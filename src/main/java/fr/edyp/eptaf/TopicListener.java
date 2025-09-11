@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
@@ -9,8 +9,6 @@ import fr.edyp.epims.json.AcquisitionFileMessageJson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 
-
-//import cea.edyp.communication.model.AcquisitionFileMessage;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;

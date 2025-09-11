@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 public class FTPConfiguration {
 

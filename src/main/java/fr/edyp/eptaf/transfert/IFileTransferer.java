@@ -1,4 +1,4 @@
-package cea.edyp.eptaf.transfert;
+package fr.edyp.eptaf.transfert;
 
 import java.io.File;
 

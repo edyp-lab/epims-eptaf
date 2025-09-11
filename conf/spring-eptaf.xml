@@ -38,7 +38,7 @@
 		</property>
 	</bean>
  
-	<bean id="messageListener" class="cea.edyp.eptaf.TopicListener" />
+	<bean id="messageListener" class="fr.edyp.eptaf.TopicListener" />
 
 	<bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg value="AcquisitionTopicV2" />
@@ -46,13 +46,13 @@
 
 	
 	<bean id="listenerContainer"
-  	class="cea.edyp.eptaf.EptafDefaultMessageListenerContainer">
+  	class="fr.edyp.eptaf.EptafDefaultMessageListenerContainer">
   		<property name="connectionFactory" ref="jmsConnectionFactory" />
 	  	<property name="destination" ref="destination" />
  	 	<property name="messageListener" ref="messageListener" />
 	</bean>
 
-	<bean id="ftpConfiguration" class="cea.edyp.eptaf.FTPConfiguration">
+	<bean id="ftpConfiguration" class="fr.edyp.eptaf.FTPConfiguration">
 		<property name="host"><value>${ftp.host}</value></property>
 		<property name="login"><value>${ftp.login}</value></property>
 		<property name="password"><value>${ftp.password}</value></property>

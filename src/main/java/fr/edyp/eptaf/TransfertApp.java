@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;

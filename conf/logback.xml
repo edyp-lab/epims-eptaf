@@ -42,11 +42,11 @@
     <logger name="TransfertApp" level="info">
     </logger>
 
-    <logger name="cea.edyp.eptaf" level="info"/>
+    <logger name="fr.edyp.eptaf" level="info"/>
 
     <logger name="org.springframework" level="warn" />
 
-    <appender name="FORM" class="cea.edyp.eptaf.LogAppender" />
+    <appender name="FORM" class="fr.edyp.eptaf.LogAppender" />
 
 
     <root level="info">

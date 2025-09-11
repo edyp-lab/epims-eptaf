@@ -1,4 +1,4 @@
-package cea.edyp.eptaf.transfert;
+package fr.edyp.eptaf.transfert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
-import cea.edyp.eptaf.FTPConfiguration;
+import fr.edyp.eptaf.FTPConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

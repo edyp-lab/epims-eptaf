@@ -3,11 +3,11 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="defaultDestination" class="cea.edyp.eptaf.Destination">
+	<bean id="defaultDestination" class="fr.edyp.eptaf.Destination">
 		<property name="path"><value>C:/PATH_TO/ePTAF_Dest</value></property>
 	</bean>
 
-	<bean id="messageFilter" class="cea.edyp.eptaf.MessageFilter">
+	<bean id="messageFilter" class="fr.edyp.eptaf.MessageFilter">
 		<property name="properties">
 			<map>
 				<entry>
@@ -22,7 +22,7 @@
 		</property>
 	</bean>
 
-	<bean id="DH5PRM_Xpl1" class="cea.edyp.eptaf.FilterDispatcher">
+	<bean id="DH5PRM_Xpl1" class="fr.edyp.eptaf.FilterDispatcher">
 		<property name="properties">
 			<map>
 				<entry>
@@ -42,7 +42,7 @@
 		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/Xpl_PRM</value></property>
 	</bean>
 
-	<bean id="DH5_Xpl1" class="cea.edyp.eptaf.FilterDispatcher">
+	<bean id="DH5_Xpl1" class="fr.edyp.eptaf.FilterDispatcher">
 		<property name="properties">
 			<map>
 				<entry>
@@ -61,7 +61,7 @@
 		</property>
 		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/DH5_Xpl1_new</value></property>
 	</bean>
-	<bean id="DH5_QHF1" class="cea.edyp.eptaf.FilterDispatcher">
+	<bean id="DH5_QHF1" class="fr.edyp.eptaf.FilterDispatcher">
 		<property name="properties">
 			<map>
 				<entry>
@@ -81,7 +81,7 @@
 		<property name="destinationPath"><value>C:/PATH_TO/ePTAF_Dest/DH5_HF1</value></property>
 	</bean>
 
-	<bean id="messageHandler" class="cea.edyp.eptaf.MessageHandler" factory-method="getInstance">
+	<bean id="messageHandler" class="fr.edyp.eptaf.MessageHandler" factory-method="getInstance">
 		<property name="defaultDestination"><ref bean="defaultDestination" /></property>
 		<property name="ftpConfig"><ref bean="ftpConfiguration" /></property>
 		<property name="messageFilter"><ref bean="messageFilter" /></property>

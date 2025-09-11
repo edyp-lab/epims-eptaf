@@ -1,4 +1,4 @@
-package cea.edyp.eptaf.ftp;
+package fr.edyp.eptaf.ftp;
 
 import java.io.File;
 import java.io.FileOutputStream;

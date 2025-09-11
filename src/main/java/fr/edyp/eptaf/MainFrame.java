@@ -1,4 +1,4 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,15 +26,13 @@ public class MainFrame extends JFrame {
         String release = "eP-TAF";
 
         try {
-            InputStream is = TestRsce.class.getClassLoader().getResourceAsStream("Version");
-            System.out.println("is "+is);
+            InputStream is = MainFrame.class.getClassLoader().getResourceAsStream("Version");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line  = reader.readLine();
             if(line != null) {
-                System.out.println("Set line "+line);
                 release = line; //read first line
             } else
-                System.out.println("NO line ");
+                System.out.println("NO  Version found ");
           } catch (IOException ignore) {
             ignore.printStackTrace();
           }

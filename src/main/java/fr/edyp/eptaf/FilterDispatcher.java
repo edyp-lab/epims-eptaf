@@ -1,10 +1,9 @@
-package cea.edyp.eptaf;
+package fr.edyp.eptaf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//import cea.edyp.communication.model.AcquisitionFileMessage;
 import fr.edyp.epims.json.AcquisitionFileMessageJson;
 
 public class FilterDispatcher extends MessageFilter implements FileDispatcher {
