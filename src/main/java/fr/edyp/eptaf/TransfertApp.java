@@ -21,6 +21,7 @@ public class TransfertApp {
 		logger.info("Config -- Jms URL Provider = "+jndiTemplate.getEnvironment().get("java.naming.provider.url"));
 		FTPConfiguration config = (FTPConfiguration)context.getBean("ftpConfiguration");
 		logger.info("Config -- FTP Host = "+config.getHost());
+		logger.info("Config -- FTP Port = "+config.getPort());
 		logger.info("Config -- FTP Login = "+config.getLogin());
 		logger.info("Config -- FTP Password = "+config.getPassword());
 		Destination d = (Destination)context.getBean("defaultDestination");

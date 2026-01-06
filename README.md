@@ -9,7 +9,7 @@ Previously hosted on CEA Tuleap Projects.
 Before running `start-epTAF.bat` you should modify following files
 
 * eptaf.properties
-  * jms.url_provider : define host & port of ePims server to get message from. Port should be 61617
+  * jms.url_provider : define host & port of ePims server to get message from. Port should be 61617 in most case
   * ftp.xxx : information to connect to the FTP server  
  
 * configuration.xml : defines rules to apply to filter server messages and download only expected acquisitions. 

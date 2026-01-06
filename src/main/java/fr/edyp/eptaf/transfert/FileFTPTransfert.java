@@ -33,7 +33,11 @@ public class FileFTPTransfert implements IFileTransferer {
 		FTPClient ftp = new FTPClient();
 	    try {
 	      int reply;
-	      ftp.connect(config.getHost());
+				if(config.getPort() != null) {
+					ftp.connect(config.getHost(), config.getPort());
+				} else {
+					ftp.connect(config.getHost());
+				}
 	      ftp.enterLocalPassiveMode();
 	      ftp.login(config.getLogin(), config.getPassword());
 	      logger.debug("FTP -- Connected to server : "+ftp.getReplyString());

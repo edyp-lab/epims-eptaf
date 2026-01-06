@@ -30,7 +30,11 @@ public class FileSFTPTransfert implements IFileTransferer {
 		try {
 			client = new SSHClient();
 			client.addHostKeyVerifier(new PromiscuousVerifier()); // Do not check who is behind server.
-			client.connect(config.getHost());
+			if(config.getPort() != null) {
+				client.connect(config.getHost(), config.getPort());
+			} else {
+				client.connect(config.getHost());
+			}
 			client.authPassword(config.getLogin(), config.getPassword());
 			sftClient = client.newSFTPClient();
 			logger.debug("SFTP -- Create SFTP Client ");
