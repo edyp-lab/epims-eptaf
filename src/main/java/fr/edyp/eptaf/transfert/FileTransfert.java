@@ -1,26 +1,22 @@
 package fr.edyp.eptaf.transfert;
 
 import java.io.File;
+import java.util.Objects;
 
 import fr.edyp.eptaf.FTPConfiguration;
 
 public class FileTransfert {
 
-	private IFileTransferer transferer;
+	private final IFileTransferer transferer;
 
 	public FileTransfert(FTPConfiguration cfg) {
-		switch (cfg.getMode()) {
-		case FTP_MODE:
-			transferer = new FileFTPTransfert(cfg);
-			break;
-		case SFTP_MODE:
-			transferer = new FileSFTPTransfert(cfg);
-			break;
+    if (Objects.requireNonNull(cfg.getMode()) == FTPConfiguration.TransfertMode.FTP_MODE) {
+      transferer = new FileFTPTransfert(cfg);
 
-		default:
-			transferer = new FileFTPTransfert(cfg);
-			break;
-		}
+      //SFTP_MODE & DEFAULT
+    } else {
+      transferer = new FileSFTPTransfert(cfg);
+    }
 	}
 
 	public void startTransfert(String path, String fileName, File destination) {

@@ -57,5 +57,7 @@
 		<property name="login"><value>${ftp.login}</value></property>
 		<property name="password"><value>${ftp.password}</value></property>
 		<property name="mode"><value>${ftp.mode}</value></property>
+		<property name="keyPath"><value>${ftp.keyPath}</value></property>
+		<property name="authMode"><value>${ftp.auth.mode}</value></property>
 	</bean>
 </beans>

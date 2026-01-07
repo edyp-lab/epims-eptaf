@@ -25,6 +25,10 @@ public class FileFTPTransfert implements IFileTransferer {
 	
 	public FileFTPTransfert(FTPConfiguration cfg) {
 		config =  cfg;
+		if(cfg.getAuthMode().equals(FTPConfiguration.AuthMode.KEY_MODE)) {
+			logger.error("FTP -- Key mode is not supported for FTP transfer.");
+			throw new IllegalArgumentException("FTP -- Key mode is not supported for FTP transfer.");
+		}
 	}
 	
 
@@ -41,7 +45,7 @@ public class FileFTPTransfert implements IFileTransferer {
 	      ftp.enterLocalPassiveMode();
 	      ftp.login(config.getLogin(), config.getPassword());
 	      logger.debug("FTP -- Connected to server : "+ftp.getReplyString());
-	      // After connection attempt, you should check the reply code to verify success.
+	      // After a connection attempt, you should check the reply code to verify success.
 	      reply = ftp.getReplyCode();
 	      if(!FTPReply.isPositiveCompletion(reply)) {
 	        ftp.disconnect();

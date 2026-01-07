@@ -6,18 +6,16 @@ import java.util.List;
 import fr.edyp.epims.json.AcquisitionFileMessageJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 
 import fr.edyp.eptaf.transfert.FileTransfert;
 
 public class MessageHandler {
 
 	private static MessageHandler instance;
-	private static Logger logger = LoggerFactory.getLogger(MessageHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
 	private FTPConfiguration ftpConfig;
-	private FileTransfert transfert;
+	private FileTransfert transfer;
 	private Destination defaultDestination;
 	private MessageFilter messageFilter;
 	private List<FileDispatcher> dispatchers;
@@ -35,7 +33,7 @@ public class MessageHandler {
 
 	public void setFtpConfig(FTPConfiguration ftpConfig) {
 		this.ftpConfig = ftpConfig;
-		this.transfert = new FileTransfert(ftpConfig);
+		this.transfer = new FileTransfert(ftpConfig);
 	}
 
 	public Destination getDefaultDestination() {
@@ -56,13 +54,13 @@ public class MessageHandler {
 
 	public void processMessage(AcquisitionFileMessageJson message) {
 		if (messageFilter.acceptMessage(message)) {
-			BeanWrapper bw = new BeanWrapperImpl(message);
+//			BeanWrapper bw = new BeanWrapperImpl(message);
 			String acqFileName = message.getAcquisitionFileDescriptor().getFileName();
 			String acqPath = message.getAcquisitionFileDescriptor().getPath(); //JPM.TODO null ??? (String) bw.getPropertyValue("acquisitionFileDescriptor.path");
 
 			List<Destination> destinations = lookupDestinations(message);
 			for (Destination d : destinations) {
-				transfert.startTransfert(acqPath.toString(), acqFileName, d.getFile());
+				transfer.startTransfert(acqPath, acqFileName, d.getFile());
 			}
 		} else {
 			logger.info("message rejected");
@@ -70,7 +68,7 @@ public class MessageHandler {
 	}
 
 	private List<Destination> lookupDestinations(AcquisitionFileMessageJson message) {
-		List<Destination> result = new ArrayList<Destination>();
+		List<Destination> result = new ArrayList<>();
 		if (dispatchers != null) {
 			for (FileDispatcher d : dispatchers) {
 				if (d.acceptMessage(message)) {

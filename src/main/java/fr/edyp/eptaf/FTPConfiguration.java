@@ -6,15 +6,40 @@ public class FTPConfiguration {
 	private Integer port;
 	private String login;
 	private String password;
+	private String keyPath;
+	private AuthMode authMode;
 	private TransfertMode mode;
 	
 	public enum TransfertMode { FTP_MODE, SFTP_MODE };
-			
+	public enum AuthMode { KEY_MODE, PASSWD_MODE };
+
 	public String getHost() {
 		return host;
 	}
 	public Integer getPort() {
 		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+
+	public String getKeyPath() {
+		return keyPath;
+	}
+
+	public void setKeyPath(String keyPath) {
+		this.keyPath = keyPath;
+	}
+
+	public AuthMode getAuthMode() {
+		if(authMode==null)
+			authMode = AuthMode.PASSWD_MODE;
+		return authMode;
+	}
+
+	public void setAuthMode(AuthMode authMode) {
+		this.authMode = authMode;
 	}
 
 	public void setHost(String host) {

@@ -23,7 +23,12 @@ public class TransfertApp {
 		logger.info("Config -- FTP Host = "+config.getHost());
 		logger.info("Config -- FTP Port = "+config.getPort());
 		logger.info("Config -- FTP Login = "+config.getLogin());
-		logger.info("Config -- FTP Password = "+config.getPassword());
+		logger.info("Config -- FTP Auth Mode = "+config.getAuthMode());
+		if(config.getAuthMode().equals(FTPConfiguration.AuthMode.PASSWD_MODE))
+			logger.info("Config -- FTP Password = "+config.getPassword());
+		else
+			logger.info("Config -- FTP Key Path = "+config.getKeyPath());
+
 		Destination d = (Destination)context.getBean("defaultDestination");
 		logger.info("Config -- Default destination for files = "+d.getPath());
 		MessageHandler handler = MessageHandler.getInstance();

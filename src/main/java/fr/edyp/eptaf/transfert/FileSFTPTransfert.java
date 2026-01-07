@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
 
 public class FileSFTPTransfert implements IFileTransferer {
 
-	private FTPConfiguration config;
-	private static Logger logger = LoggerFactory.getLogger(FileSFTPTransfert.class);
+	private final FTPConfiguration config;
+	private static final Logger logger = LoggerFactory.getLogger(FileSFTPTransfert.class);
 		
 	public FileSFTPTransfert(FTPConfiguration cfg) {
 		config =  cfg;
@@ -24,24 +24,29 @@ public class FileSFTPTransfert implements IFileTransferer {
 
 
 	public void startTransfert(String path, String fileName, File destination) {
-		logger.info("SFTP -- File '"+fileName+"' ("+path.toString()+") will be transfered to "+destination.getAbsolutePath());
+    logger.info("SFTP -- File '{}' ({}) will be transferred to {}", fileName, path, destination.getAbsolutePath());
 		SSHClient client = null;
 		SFTPClient sftClient = null;
 		try {
 			client = new SSHClient();
-			client.addHostKeyVerifier(new PromiscuousVerifier()); // Do not check who is behind server.
+			client.addHostKeyVerifier(new PromiscuousVerifier()); // Do not check who is behind the server.
 			if(config.getPort() != null) {
 				client.connect(config.getHost(), config.getPort());
 			} else {
 				client.connect(config.getHost());
 			}
-			client.authPassword(config.getLogin(), config.getPassword());
+			if(config.getAuthMode().equals(FTPConfiguration.AuthMode.KEY_MODE)) {
+				client.authPassword(config.getLogin(), config.getPassword());
+			} else {
+				String keyPath = config.getKeyPath();
+				client.authPublickey(config.getLogin(), keyPath);
+			}
 			sftClient = client.newSFTPClient();
 			logger.debug("SFTP -- Create SFTP Client ");
 			StringBuilder sb = new StringBuilder("epims_repo/repository/"); //VDS TODO: REPLACE by config param : pims_root...
 			sb.append(path).append("/").append(fileName);
 			LocalDestFile destFile = new FileSystemFile(destination);
-			logger.debug("SFTP -- get: "+sb.toString());
+      logger.debug("SFTP -- get: {}", sb);
 			sftClient.get(sb.toString(), destFile);			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
