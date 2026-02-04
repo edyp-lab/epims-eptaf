@@ -35,7 +35,6 @@ public class SSHJTest {
 			try {
 				client.loadKnownHosts();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -97,7 +96,6 @@ public class SSHJTest {
 				ftpClient.logout();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		

@@ -54,9 +54,8 @@ public class MessageHandler {
 
 	public void processMessage(AcquisitionFileMessageJson message) {
 		if (messageFilter.acceptMessage(message)) {
-//			BeanWrapper bw = new BeanWrapperImpl(message);
 			String acqFileName = message.getAcquisitionFileDescriptor().getFileName();
-			String acqPath = message.getAcquisitionFileDescriptor().getPath(); //JPM.TODO null ??? (String) bw.getPropertyValue("acquisitionFileDescriptor.path");
+			String acqPath = message.getAcquisitionFileDescriptor().getPath();
 
 			List<Destination> destinations = lookupDestinations(message);
 			for (Destination d : destinations) {

@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Destination {
 
-	private static Logger logger = LoggerFactory.getLogger(Destination.class);
+	private static final Logger logger = LoggerFactory.getLogger(Destination.class);
 	
 	private String path;
 	private File file;
@@ -35,7 +35,7 @@ public class Destination {
 			File parent = file.getParentFile();
 			if ((parent.exists() && parent.isDirectory() && parent.canWrite())) {
 				if (file.mkdir()) {
-					logger.info("Destination directory "+file.getAbsolutePath()+" created");
+          logger.info("Destination directory {} created", file.getAbsolutePath());
 				} else {
 					throw new IllegalArgumentException(parent.getAbsolutePath()+"cannot create directory "+path);					
 				}

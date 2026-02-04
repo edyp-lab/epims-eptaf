@@ -9,7 +9,8 @@ public class FTPConfiguration {
 	private String keyPath;
 	private AuthMode authMode;
 	private TransfertMode mode;
-	
+	private String epimsRoot;
+
 	public enum TransfertMode { FTP_MODE, SFTP_MODE };
 	public enum AuthMode { KEY_MODE, PASSWD_MODE };
 
@@ -52,6 +53,14 @@ public class FTPConfiguration {
 			 }
 		} else
 			this.host = host;
+	}
+
+	public String getEpimsRoot() {
+		return epimsRoot;
+	}
+
+	public void setEpimsRoot(String epimsRoot) {
+		this.epimsRoot = epimsRoot;
 	}
 
 	public String getLogin() {

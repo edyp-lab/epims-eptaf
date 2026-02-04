@@ -43,13 +43,13 @@ public class FileSFTPTransfert implements IFileTransferer {
 			}
 			sftClient = client.newSFTPClient();
 			logger.debug("SFTP -- Create SFTP Client ");
-			StringBuilder sb = new StringBuilder("epims_repo/repository/"); //VDS TODO: REPLACE by config param : pims_root...
+			String rootPath = config.getEpimsRoot();
+			StringBuilder sb = new StringBuilder(rootPath);
 			sb.append(path).append("/").append(fileName);
 			LocalDestFile destFile = new FileSystemFile(destination);
       logger.debug("SFTP -- get: {}", sb);
 			sftClient.get(sb.toString(), destFile);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally  {
 			if(sftClient != null){

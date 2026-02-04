@@ -59,5 +59,6 @@
 		<property name="mode"><value>${ftp.mode}</value></property>
 		<property name="keyPath"><value>${ftp.keyPath}</value></property>
 		<property name="authMode"><value>${ftp.auth.mode}</value></property>
+		<property name="epimsRoot"><value>${ftp.epims.root}</value></property>
 	</bean>
 </beans>
