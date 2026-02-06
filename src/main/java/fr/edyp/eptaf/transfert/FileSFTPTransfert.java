@@ -35,7 +35,7 @@ public class FileSFTPTransfert implements IFileTransferer {
 			} else {
 				client.connect(config.getHost());
 			}
-			if(config.getAuthMode().equals(FTPConfiguration.AuthMode.KEY_MODE)) {
+			if(config.getAuthMode().equals(FTPConfiguration.AuthMode.PASSWD_MODE)) {
 				client.authPassword(config.getLogin(), config.getPassword());
 			} else {
 				String keyPath = config.getKeyPath();
