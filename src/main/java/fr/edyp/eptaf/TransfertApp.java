@@ -56,16 +56,17 @@ public class TransfertApp {
 //		System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, "logback.xml");
 		logger = LoggerFactory.getLogger("TransfertApp");
 
-
+		// Force non-headless deterministically (don’t rely on timing/prints)
+		System.setProperty("java.awt.headless", "false");
 
 		FileSystemXmlApplicationContext appContext = new FileSystemXmlApplicationContext(new String[] { "./conf/spring-eptaf.xml", "./conf/configuration.xml" });
-		logConfiguration(appContext);
+
 
 		LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 		context.getLogger(SpringApplication.class).setLevel(Level.valueOf("warn"));
 
 		SpringApplication.run(TransfertApp.class, args);
-
+		logConfiguration(appContext);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
