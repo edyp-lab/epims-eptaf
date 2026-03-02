@@ -17,6 +17,11 @@ Before running `start-epTAF.bat` you should modify following files
 
 ## Revisions
 
+### version 2.1.x
+
+* Improve build to use scripts instead of exe 
+* Allow more FTP configuration (port/authentification mode)
+
 ### version 2.0.0
 
 * Use graphic frame for log information
