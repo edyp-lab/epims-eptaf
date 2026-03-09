@@ -6,7 +6,7 @@
 	<artifactId>eP-TAF</artifactId>
 	<packaging>jar</packaging>
 	<name>eP-TAF</name>
-	<version>2.1.1-SNAPSHOT</version>
+	<version>2.1.2-SNAPSHOT</version>
 	<properties>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>fr.edyp.epims</groupId>
 			<artifactId>eP-Json</artifactId>
-			<version>3.7.1-SNAPSHOT</version>
+			<version>3.7.1</version>
 		</dependency>
 
 		<dependency>
@@ -185,10 +185,32 @@
 									<directory>conf</directory>
 									<filtering>true</filtering>
 								</resource>
+
 							</resources>
 						</configuration>
 					</execution>
-
+					<execution>
+						<id>copy-license</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<useDefaultDelimiters>true</useDefaultDelimiters>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>${project.basedir}</directory>
+									<includes>
+										<include>LICENSE.md</include>
+									</includes>
+									<targetPath>META-INF</targetPath>
+								</resource>
+							</resources>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
