@@ -1,1 +1,1 @@
-.\jdk\bin\java -Xms512m -Xmx1G -Dlogback.configurationFile=conf/logback.xml -jar eP-TAF-@version@.jar
+.\jdk\bin\java -Xms512m -Xmx1G -Dlogging.config=conf/logback.xml -jar eP-TAF-@version@.jar
